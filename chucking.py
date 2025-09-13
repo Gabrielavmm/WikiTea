@@ -4,7 +4,7 @@ from bs4 import BeautifulSoup
 from langchain_community.document_loaders import WebBaseLoader
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain_chroma import Chroma
-from langchain_openai import OpenAIEmbeddings
+from langchain_community.embeddings import HuggingFaceEmbeddings
 
 
 # URL da página 
@@ -51,7 +51,7 @@ else:
     # STEP 3 Salvar no disco
     vectorstore = Chroma.from_documents(
         documents=splits,
-        embedding=OpenAIEmbeddings(),
+        embedding=HuggingFaceEmbeddings(model_name="sentence-transformers/all-MiniLM-L6-v2"),
         persist_directory="./chroma_db",
         collection_name="autismo"
     )
