@@ -28,7 +28,6 @@ logger = logging.getLogger(__name__)
 # Configuração da página
 st.set_page_config(
     page_title="Assistente RAG - Autismo",
-    page_icon="🧠",
     layout="wide",
     initial_sidebar_state="expanded"
 )
@@ -51,51 +50,51 @@ def initialize_session_state():
 def display_sidebar():
     """Exibe a barra lateral com informações"""
     with st.sidebar:
-        st.title("🧠 Assistente RAG - Autismo")
+        st.title("Assistente RAG - Autismo")
         
-        st.markdown("""
-        ### Sobre este sistema
+        st.write("""
+        Sobre este sistema
         
         Este é um assistente baseado em RAG (Retrieval-Augmented Generation) 
         especializado em informações sobre autismo (TEA).
         
-        **Características:**
-        - ✅ Citações das fontes
-        - ✅ Verificação de evidências
-        - ✅ Disclaimers de segurança
-        - ✅ Múltiplas fontes de dados
+        Características:
+        - Citações das fontes
+        - Verificação de evidências
+        - Disclaimers de segurança
+        - Múltiplas fontes de dados
         
-        **⚠️ Importante:**
+        Importante:
         Este sistema é apenas informativo e não substitui 
         consulta médica ou psicológica profissional.
         """)
         
         # Informações do sistema
         if st.session_state.get("system_ready", False):
-            st.success("✅ Sistema inicializado")
+            st.success("Sistema inicializado")
             
             # Mostrar estatísticas do banco vetorial
             try:
                 stats = st.session_state.vector_tool.get_collection_info()
-                st.info(f"📊 Documentos indexados: {stats.get('document_count', 'N/A')}")
+                st.info(f"Documentos indexados: {stats.get('document_count', 'N/A')}")
             except:
                 pass
         else:
-            st.error("❌ Sistema não inicializado")
+            st.error("Sistema nao inicializado")
         
         # Limpar histórico
-        if st.button("🗑️ Limpar Histórico"):
+        if st.button("Limpar Historico"):
             st.session_state.messages = []
             st.rerun()
 
 def display_chat():
     """Exibe a interface de chat"""
-    st.title("💬 Chat com o Assistente")
+    st.title("Chat com o Assistente")
     
     # Exibir histórico de mensagens
     for message in st.session_state.messages:
         with st.chat_message(message["role"]):
-            st.markdown(message["content"])
+            st.code(message["content"], language=None)
     
     # Input do usuário
     if prompt := st.chat_input("Faça sua pergunta sobre autismo..."):
@@ -103,7 +102,7 @@ def display_chat():
         st.session_state.messages.append({"role": "user", "content": prompt})
         
         with st.chat_message("user"):
-            st.markdown(prompt)
+            st.code(prompt, language=None)
         
         # Processar com o sistema RAG
         if st.session_state.get("system_ready", False):
@@ -114,7 +113,7 @@ def display_chat():
                         response = st.session_state.rag_graph.process_query(prompt)
                         
                         # Exibir resposta
-                        st.markdown(response)
+                        st.code(response, language=None)
                         
                         # Adicionar ao histórico
                         st.session_state.messages.append({"role": "assistant", "content": response})
@@ -130,7 +129,7 @@ def display_chat():
 
 def display_examples():
     """Exibe exemplos de perguntas"""
-    st.subheader("💡 Exemplos de Perguntas")
+    st.subheader("Exemplos de Perguntas")
     
     examples = [
         "O que é autismo?",
@@ -146,25 +145,25 @@ def display_examples():
     cols = st.columns(2)
     for i, example in enumerate(examples):
         col = cols[i % 2]
-        if col.button(f"❓ {example}", key=f"example_{i}"):
+        if col.button(f"? {example}", key=f"example_{i}"):
             st.session_state.messages.append({"role": "user", "content": example})
             st.rerun()
 
 def display_footer():
     """Exibe rodapé com informações importantes"""
-    st.markdown("---")
+    st.write("---")
     
-    st.markdown("""
-    <div style='text-align: center; color: #666; font-size: 0.8em;'>
-        <p><strong>⚠️ Disclaimer Importante:</strong></p>
-        <p>Este sistema é apenas informativo e educacional. As informações fornecidas 
-        não substituem consulta médica, psicológica ou de outros profissionais qualificados.</p>
-        <p>Para diagnóstico, tratamento ou orientações específicas, sempre consulte 
-        profissionais de saúde especializados.</p>
-        <br>
-        <p>Desenvolvido como projeto acadêmico - Sistema RAG + Agentes LangGraph</p>
-    </div>
-    """, unsafe_allow_html=True)
+    st.write("""
+    Disclaimer Importante:
+    
+    Este sistema é apenas informativo e educacional. As informações fornecidas 
+    não substituem consulta médica, psicológica ou de outros profissionais qualificados.
+    
+    Para diagnóstico, tratamento ou orientações específicas, sempre consulte 
+    profissionais de saúde especializados.
+    
+    Desenvolvido como projeto acadêmico - Sistema RAG + Agentes LangGraph
+    """)
 
 def main():
     """Função principal da aplicação"""
@@ -175,43 +174,43 @@ def main():
     display_sidebar()
     
     # Conteúdo principal
-    tab1, tab2 = st.tabs(["💬 Chat", "ℹ️ Sobre"])
+    tab1, tab2 = st.tabs(["Chat", "Sobre"])
     
     with tab1:
         display_chat()
         display_examples()
     
     with tab2:
-        st.subheader("📋 Sobre o Sistema")
+        st.subheader("Sobre o Sistema")
         
-        st.markdown("""
-        ### 🏗️ Arquitetura
+        st.write("""
+        Arquitetura
         
         Este sistema utiliza uma arquitetura de agentes baseada em LangGraph:
         
-        **🤖 Agentes:**
-        - **Supervisor**: Decide o fluxo baseado na consulta
-        - **Retriever**: Busca documentos relevantes no banco vetorial
-        - **Answerer**: Gera resposta com base nos documentos encontrados
-        - **Self-Check**: Valida se a resposta tem evidências suficientes
-        - **Safety**: Adiciona disclaimers e verifica segurança
+        Agentes:
+        - Supervisor: Decide o fluxo baseado na consulta
+        - Retriever: Busca documentos relevantes no banco vetorial
+        - Answerer: Gera resposta com base nos documentos encontrados
+        - Self-Check: Valida se a resposta tem evidências suficientes
+        - Safety: Adiciona disclaimers e verifica segurança
         
-        **🔧 Tecnologias:**
-        - **LangGraph**: Orquestração de agentes
-        - **ChromaDB**: Banco vetorial para documentos
-        - **HuggingFace Embeddings**: Modelos de embedding
-        - **Streamlit**: Interface web
-        - **Ollama/LLM**: Geração de respostas
+        Tecnologias:
+        - LangGraph: Orquestração de agentes
+        - ChromaDB: Banco vetorial para documentos
+        - HuggingFace Embeddings: Modelos de embedding
+        - Streamlit: Interface web
+        - Ollama/LLM: Geração de respostas
         
-        ### 📊 Métricas de Qualidade
+        Métricas de Qualidade
         
         O sistema implementa várias verificações:
-        - **Citações obrigatórias**: Todas as respostas devem ter fontes
-        - **Score de confiança**: Avaliação da qualidade da resposta
-        - **Verificação de evidências**: Garantia de que há suporte documental
-        - **Disclaimers de segurança**: Alertas sobre limitações médicas
+        - Citações obrigatórias: Todas as respostas devem ter fontes
+        - Score de confiança: Avaliação da qualidade da resposta
+        - Verificação de evidências: Garantia de que há suporte documental
+        - Disclaimers de segurança: Alertas sobre limitações médicas
         
-        ### 🎯 Fontes de Dados
+        Fontes de Dados
         
         - Wikipedia sobre autismo
         - Informações oficiais do SUS
@@ -221,7 +220,7 @@ def main():
         
         # Mostrar configurações se disponível
         if st.session_state.get("system_ready", False):
-            st.subheader("⚙️ Configurações do Sistema")
+            st.subheader("Configuracoes do Sistema")
             
             try:
                 vector_stats = st.session_state.vector_tool.get_collection_info()
