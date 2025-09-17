@@ -4,6 +4,22 @@ Configurações do sistema RAG para Autismo
 
 import os
 from typing import Dict, Any
+from pathlib import Path
+
+# Carregar variáveis de ambiente do arquivo .env manualmente
+def load_env_manually():
+    """Carrega variáveis do arquivo .env manualmente"""
+    env_file = Path(__file__).parent.parent.parent / ".env"
+    if env_file.exists():
+        with open(env_file, 'r') as f:
+            for line in f:
+                line = line.strip()
+                if line and not line.startswith('#') and '=' in line:
+                    key, value = line.split('=', 1)
+                    os.environ[key.strip()] = value.strip()
+
+# Carregar variáveis de ambiente
+load_env_manually()
 
 class Settings:
     """Configurações centralizadas do sistema"""
@@ -25,8 +41,8 @@ class Settings:
     
     # Configurações do LLM
     LLM = {
-        "model_type": "ollama",  # ollama, openai, huggingface
-        "model_name": "llama3.1:8b",
+        "model_type": "openai",  # openai, huggingface, fallback
+        "model_name": "gpt-3.5-turbo",
         "temperature": 0.7,
         "max_tokens": 2048
     }

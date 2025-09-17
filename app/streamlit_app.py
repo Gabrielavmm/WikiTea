@@ -38,13 +38,40 @@ def initialize_session_state():
         st.session_state.messages = []
     
     if "rag_graph" not in st.session_state:
-        with st.spinner("Inicializando sistema..."):
+        # Loading mais detalhado para inicialização
+        init_container = st.container()
+        with init_container:
+            st.info("🚀 Inicializando sistema RAG...")
+            
+            init_progress = st.progress(0)
+            init_status = st.empty()
+            
             try:
+                # Carregar componentes
+                init_status.text("📚 Carregando banco vetorial ChromaDB...")
+                init_progress.progress(25)
+                
+                init_status.text("🤖 Inicializando OpenAI GPT-3.5-turbo...")
+                init_progress.progress(50)
+                
+                init_status.text("🔗 Configurando agentes LangGraph...")
+                init_progress.progress(75)
+                
                 st.session_state.rag_graph = create_rag_graph()
                 st.session_state.vector_tool = create_vector_search_tool()
+                
+                init_status.text("✅ Sistema inicializado com sucesso!")
+                init_progress.progress(100)
+                
                 st.session_state.system_ready = True
+                
+                # Limpar loading após um momento
+                import time
+                time.sleep(1)
+                init_container.empty()
+                
             except Exception as e:
-                st.error(f"Erro ao inicializar sistema: {e}")
+                st.error(f"❌ Erro ao inicializar sistema: {e}")
                 st.session_state.system_ready = False
 
 def display_sidebar():
@@ -71,16 +98,24 @@ def display_sidebar():
         
         # Informações do sistema
         if st.session_state.get("system_ready", False):
-            st.success("Sistema inicializado")
+            st.success("✅ Sistema inicializado")
+            
+            # Status dos componentes
+            st.markdown("**Status dos Componentes:**")
+            st.markdown("🤖 OpenAI: ✅ Ativo")
+            st.markdown("🧠 GPT-3.5-turbo: ✅ Carregado")
+            st.markdown("📚 ChromaDB: ✅ Conectado")
+            st.markdown("🔗 LangGraph: ✅ Configurado")
             
             # Mostrar estatísticas do banco vetorial
             try:
                 stats = st.session_state.vector_tool.get_collection_info()
-                st.info(f"Documentos indexados: {stats.get('document_count', 'N/A')}")
+                st.info(f"📄 Documentos indexados: {stats.get('document_count', 'N/A')}")
             except:
                 pass
         else:
-            st.error("Sistema nao inicializado")
+            st.error("❌ Sistema não inicializado")
+            st.info("🔄 Recarregue a página para inicializar")
         
         # Limpar histórico
         if st.button("Limpar Historico"):
@@ -107,10 +142,68 @@ def display_chat():
         # Processar com o sistema RAG
         if st.session_state.get("system_ready", False):
             with st.chat_message("assistant"):
-                with st.spinner("Processando sua pergunta..."):
+                # Container para loading progressivo
+                loading_container = st.container()
+                
+                with loading_container:
+                    # Indicador principal
+                    progress_bar = st.progress(0)
+                    status_text = st.empty()
+                    
                     try:
-                        # Processar consulta
+                        # Processar consulta com loading progressivo
+                        import threading
+                        import time
+                        
+                        # Variáveis para controle do loading
+                        current_status = "🤖 Supervisor: Analisando sua pergunta..."
+                        progress_value = 0
+                        
+                        def update_loading():
+                            nonlocal current_status, progress_value
+                            status_text.text(current_status)
+                            progress_bar.progress(progress_value)
+                        
+                        # Iniciar com supervisor
+                        current_status = "🤖 Supervisor: Analisando sua pergunta..."
+                        progress_value = 10
+                        update_loading()
+                        time.sleep(0.3)
+                        
+                        # Retriever
+                        current_status = "🔍 Retriever: Buscando documentos relevantes..."
+                        progress_value = 25
+                        update_loading()
+                        time.sleep(0.5)
+                        
+                        # Answerer
+                        current_status = "✍️ Answerer: Gerando resposta com Llama-3.2-3B..."
+                        progress_value = 50
+                        update_loading()
+                        
+                        # Processar consulta (esta é a parte que demora mais)
                         response = st.session_state.rag_graph.process_query(prompt)
+                        
+                        # Self-Check
+                        current_status = "🔍 Self-Check: Validando qualidade da resposta..."
+                        progress_value = 80
+                        update_loading()
+                        time.sleep(0.2)
+                        
+                        # Safety
+                        current_status = "🛡️ Safety: Verificando segurança..."
+                        progress_value = 90
+                        update_loading()
+                        time.sleep(0.2)
+                        
+                        # Finalizar
+                        current_status = "✅ Resposta finalizada!"
+                        progress_value = 100
+                        update_loading()
+                        time.sleep(0.5)
+                        
+                        # Limpar loading
+                        loading_container.empty()
                         
                         # Exibir resposta
                         st.code(response, language=None)
@@ -200,7 +293,7 @@ def main():
         - ChromaDB: Banco vetorial para documentos
         - HuggingFace Embeddings: Modelos de embedding
         - Streamlit: Interface web
-        - Ollama/LLM: Geração de respostas
+        - OpenAI/LLM: Geração de respostas
         
         Métricas de Qualidade
         

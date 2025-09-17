@@ -118,7 +118,7 @@ docker run -p 8501:8501 autism-rag
 ### 3. **Answerer** (Gerador de Respostas)
 - Gera respostas baseadas nos documentos recuperados
 - **SEMPRE inclui citações** das fontes
-- Usa LLM (Ollama/Llama3.1 por padrão)
+- Usa LLM (OpenAI GPT-3.5-turbo por padrão)
 
 ### 4. **Self-Check** (Anti-alucinação)
 - Valida se a resposta tem evidências suficientes
@@ -174,14 +174,41 @@ O sistema implementa várias verificações:
 - **Answer Relevancy**: Relevância das respostas para as perguntas
 - **Context Precision/Recall**: Qualidade da recuperação de documentos
 
+## 🚀 Instalação Rápida
+
+### 1. Clone o repositório
+```bash
+git clone <seu-repositorio>
+cd AtividadeLLM
+```
+
+### 2. Instale as dependências
+```bash
+pip install -r requirements.txt
+```
+
+### 3. Configure as variáveis de ambiente
+```bash
+# Copie o arquivo de exemplo
+cp env.example .env
+
+# Edite o .env com sua chave OpenAI
+nano .env
+```
+
+### 4. Execute o sistema
+```bash
+streamlit run app/streamlit_app.py
+```
+
 ## 🔧 Configurações
 
 ### Variáveis de Ambiente
 
 ```bash
 # LLM
-export LLM_MODEL_TYPE="ollama"  # ollama, openai, huggingface
-export LLM_MODEL_NAME="llama3.1:8b"
+export LLM_MODEL_TYPE="openai"  # openai, huggingface
+export LLM_MODEL_NAME="gpt-3.5-turbo"
 
 # Vector Store
 export VECTOR_STORE_DIR="./chroma_db"

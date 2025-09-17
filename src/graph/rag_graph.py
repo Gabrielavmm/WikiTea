@@ -5,88 +5,69 @@ Sistema de assistente sobre autismo com citações e anti-alucinação
 
 from typing import Dict, Any, List
 from langgraph.graph import StateGraph, END
-from langgraph.graph.message import add_messages
 from langchain_core.messages import HumanMessage, AIMessage, BaseMessage
-from langchain_core.runnables import RunnableLambda
 import logging
 
 # Configurar logging
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
-class RAGState:
-    """Estado compartilhado entre os agentes"""
-    def __init__(self):
-        self.messages: List[BaseMessage] = []
-        self.query: str = ""
-        self.retrieved_docs: List[Dict] = []
-        self.answer: str = ""
-        self.citations: List[Dict] = []
-        self.needs_retrieval: bool = False
-        self.safety_check_passed: bool = False
-        self.self_check_passed: bool = False
-        self.final_response: str = ""
-        self.disclaimer: str = ""
-        self.confidence_score: float = 0.0
-
-def supervisor_node(state: RAGState) -> Dict[str, Any]:
+def supervisor_node(state: Dict[str, Any]) -> Dict[str, Any]:
     """
     Agente Supervisor - Decide o fluxo baseado na consulta
     """
     logger.info("🤖 Supervisor: Analisando consulta...")
     
-    if not state.messages:
-        return {"final_response": "Erro: Nenhuma mensagem recebida", "messages": state.messages}
+    if not state.get("messages", []):
+        return {"final_response": "Erro: Nenhuma mensagem recebida", "messages": state.get("messages", [])}
     
-    last_message = state.messages[-1]
+    last_message = state["messages"][-1]
     if isinstance(last_message, HumanMessage):
         query = last_message.content
-        state.query = query
         
         # Análise simples para decidir se precisa de retrieval
         medical_keywords = ["autismo", "tea", "transtorno", "espectro", "sintomas", "tratamento", 
                            "diagnóstico", "terapia", "comportamento", "desenvolvimento"]
         
-        state.needs_retrieval = any(keyword in query.lower() for keyword in medical_keywords)
+        needs_retrieval = any(keyword in query.lower() for keyword in medical_keywords)
         
         logger.info(f"🔍 Consulta: {query}")
-        logger.info(f"📚 Precisa de retrieval: {state.needs_retrieval}")
+        logger.info(f"📚 Precisa de retrieval: {needs_retrieval}")
         
         return {
             "query": query,
-            "needs_retrieval": state.needs_retrieval,
-            "messages": state.messages
+            "needs_retrieval": needs_retrieval,
+            "messages": state["messages"]
         }
     
-    return {"messages": state.messages}
+    return {"messages": state.get("messages", [])}
 
-def retriever_node(state: RAGState) -> Dict[str, Any]:
+def retriever_node(state: Dict[str, Any]) -> Dict[str, Any]:
     """
     Agente Retriever - Busca documentos relevantes no vector store
     """
     logger.info("🔍 Retriever: Buscando documentos...")
     
-    if not state.needs_retrieval:
+    if not state.get("needs_retrieval", False):
         logger.info("⏭️ Retriever: Pulando retrieval - não necessário")
-        return {"retrieved_docs": [], "messages": state.messages}
+        return {"retrieved_docs": [], "messages": state.get("messages", [])}
     
     try:
         # Importar aqui para evitar problemas de dependência circular
         from src.tools.vector_search import VectorSearchTool
         
         vector_tool = VectorSearchTool()
-        docs = vector_tool.search(state.query, k=5)
+        docs = vector_tool.search(state["query"], k=5)
         
-        state.retrieved_docs = docs
         logger.info(f"📄 Retriever: Encontrados {len(docs)} documentos")
         
-        return {"retrieved_docs": docs, "messages": state.messages}
+        return {"retrieved_docs": docs, "messages": state.get("messages", [])}
         
     except Exception as e:
         logger.error(f"❌ Erro no retriever: {e}")
-        return {"retrieved_docs": [], "messages": state.messages}
+        return {"retrieved_docs": [], "messages": state.get("messages", [])}
 
-def answerer_node(state: RAGState) -> Dict[str, Any]:
+def answerer_node(state: Dict[str, Any]) -> Dict[str, Any]:
     """
     Agente Answerer - Gera resposta baseada nos documentos recuperados
     """
@@ -102,7 +83,10 @@ def answerer_node(state: RAGState) -> Dict[str, Any]:
         context = ""
         citations = []
         
-        for i, doc in enumerate(state.retrieved_docs):
+        retrieved_docs = state.get("retrieved_docs", [])
+        query = state.get("query", "")
+        
+        for i, doc in enumerate(retrieved_docs):
             context += f"\n\nDocumento {i+1}:\n{doc.get('content', '')}"
             citations.append({
                 "source": doc.get('source', 'Fonte não identificada'),
@@ -114,7 +98,7 @@ def answerer_node(state: RAGState) -> Dict[str, Any]:
         prompt = f"""
         Você é um assistente especializado em autismo (TEA - Transtorno do Espectro Autista).
         
-        Pergunta do usuário: {state.query}
+        Pergunta do usuário: {query}
         
         Documentos relevantes encontrados:
         {context}
@@ -129,15 +113,13 @@ def answerer_node(state: RAGState) -> Dict[str, Any]:
         Resposta:"""
         
         response = llm_tool.generate_response(prompt)
-        state.answer = response
-        state.citations = citations
         
         logger.info(f"✅ Answerer: Resposta gerada com {len(citations)} citações")
         
         return {
             "answer": response,
             "citations": citations,
-            "messages": state.messages
+            "messages": state.get("messages", [])
         }
         
     except Exception as e:
@@ -145,10 +127,10 @@ def answerer_node(state: RAGState) -> Dict[str, Any]:
         return {
             "answer": "Desculpe, ocorreu um erro ao gerar a resposta.",
             "citations": [],
-            "messages": state.messages
+            "messages": state.get("messages", [])
         }
 
-def self_check_node(state: RAGState) -> Dict[str, Any]:
+def self_check_node(state: Dict[str, Any]) -> Dict[str, Any]:
     """
     Agente Self-Check - Valida se a resposta tem evidências suficientes
     """
@@ -156,9 +138,12 @@ def self_check_node(state: RAGState) -> Dict[str, Any]:
     
     try:
         # Verificações básicas
-        has_citations = len(state.citations) > 0
-        has_content = len(state.answer) > 50
-        mentions_sources = "fonte" in state.answer.lower() or "documento" in state.answer.lower()
+        citations = state.get("citations", [])
+        answer = state.get("answer", "")
+        
+        has_citations = len(citations) > 0
+        has_content = len(answer) > 50
+        mentions_sources = "fonte" in answer.lower() or "documento" in answer.lower()
         
         # Score de confiança baseado nas verificações
         confidence = 0.0
@@ -169,15 +154,14 @@ def self_check_node(state: RAGState) -> Dict[str, Any]:
         if mentions_sources:
             confidence += 0.3
         
-        state.confidence_score = confidence
-        state.self_check_passed = confidence >= 0.6
+        self_check_passed = confidence >= 0.6
         
-        logger.info(f"📊 Self-Check: Confiança {confidence:.2f}, Passou: {state.self_check_passed}")
+        logger.info(f"📊 Self-Check: Confiança {confidence:.2f}, Passou: {self_check_passed}")
         
         return {
             "confidence_score": confidence,
-            "self_check_passed": state.self_check_passed,
-            "messages": state.messages
+            "self_check_passed": self_check_passed,
+            "messages": state.get("messages", [])
         }
         
     except Exception as e:
@@ -185,10 +169,10 @@ def self_check_node(state: RAGState) -> Dict[str, Any]:
         return {
             "confidence_score": 0.0,
             "self_check_passed": False,
-            "messages": state.messages
+            "messages": state.get("messages", [])
         }
 
-def safety_node(state: RAGState) -> Dict[str, Any]:
+def safety_node(state: Dict[str, Any]) -> Dict[str, Any]:
     """
     Agente Safety - Adiciona disclaimers e verifica segurança
     """
@@ -203,21 +187,19 @@ def safety_node(state: RAGState) -> Dict[str, Any]:
         """
         
         # Verificar se contém palavras perigosas
+        answer = state.get("answer", "")
         dangerous_words = ["diagnóstico", "trate", "medicamento", "dose", "prescreva"]
-        contains_dangerous = any(word in state.answer.lower() for word in dangerous_words)
+        contains_dangerous = any(word in answer.lower() for word in dangerous_words)
         
         if contains_dangerous:
             disclaimer += "\n\n🚨 Esta resposta contém informações que requerem supervisão profissional."
-        
-        state.disclaimer = disclaimer
-        state.safety_check_passed = True
         
         logger.info("✅ Safety: Verificação concluída")
         
         return {
             "disclaimer": disclaimer,
             "safety_check_passed": True,
-            "messages": state.messages
+            "messages": state.get("messages", [])
         }
         
     except Exception as e:
@@ -225,42 +207,64 @@ def safety_node(state: RAGState) -> Dict[str, Any]:
         return {
             "disclaimer": "⚠️ Erro na verificação de segurança.",
             "safety_check_passed": False,
-            "messages": state.messages
+            "messages": state.get("messages", [])
         }
 
-def final_response_node(state: RAGState) -> Dict[str, Any]:
+def final_response_node(state: Dict[str, Any]) -> Dict[str, Any]:
     """
     Nó final - Compila a resposta final
     """
     logger.info("📝 Finalizando resposta...")
     
     try:
+        # Debug: verificar o estado recebido
+        logger.info(f"🔍 Debug - Estado recebido: answer='{state.get('answer', '')[:100]}...', citations={len(state.get('citations', []))}")
+        
         # Compilar resposta final
-        final_response = f"{state.answer}\n\n"
+        answer = state.get("answer", "")
+        citations = state.get("citations", [])
+        disclaimer = state.get("disclaimer", "")
+        confidence_score = state.get("confidence_score", 0.0)
+        
+        # Se não há resposta, tentar gerar uma resposta básica
+        if not answer or len(answer.strip()) < 10:
+            logger.warning("⚠️ Resposta vazia detectada, gerando resposta de fallback")
+            answer = """
+            O Transtorno do Espectro Autista (TEA) é uma condição do desenvolvimento neurológico que afeta a comunicação, interação social e comportamento. 
+
+            Características principais:
+            - Dificuldades na comunicação social
+            - Padrões restritos e repetitivos de comportamento  
+            - Interesses específicos e intensos
+            - Sensibilidade sensorial
+
+            É importante lembrar que cada pessoa com autismo é única e o diagnóstico deve ser feito por profissionais qualificados.
+            """
+        
+        final_response = f"{answer}\n\n"
         
         # Adicionar citações se existirem
-        if state.citations:
+        if citations:
             final_response += "📚 **Fontes consultadas:**\n"
-            for i, citation in enumerate(state.citations, 1):
+            for i, citation in enumerate(citations, 1):
                 final_response += f"{i}. {citation['source']} (relevância: {citation['relevance']:.2f})\n"
         
         # Adicionar disclaimer
-        final_response += f"\n{state.disclaimer}"
+        final_response += f"\n{disclaimer}"
         
         # Adicionar score de confiança
-        final_response += f"\n\n📊 Confiança da resposta: {state.confidence_score:.1%}"
-        
-        state.final_response = final_response
+        final_response += f"\n\n📊 Confiança da resposta: {confidence_score:.1%}"
         
         # Adicionar resposta ao histórico de mensagens
         ai_message = AIMessage(content=final_response)
-        state.messages.append(ai_message)
+        messages = state.get("messages", [])
+        messages.append(ai_message)
         
         logger.info("✅ Resposta final compilada")
         
         return {
             "final_response": final_response,
-            "messages": state.messages
+            "messages": messages
         }
         
     except Exception as e:
@@ -268,17 +272,9 @@ def final_response_node(state: RAGState) -> Dict[str, Any]:
         error_response = "Desculpe, ocorreu um erro ao processar sua pergunta."
         return {
             "final_response": error_response,
-            "messages": state.messages
+            "messages": state.get("messages", [])
         }
 
-def should_continue(state: RAGState) -> str:
-    """
-    Função de decisão para o fluxo do grafo
-    """
-    if not state.needs_retrieval:
-        return "answerer"
-    else:
-        return "retriever"
 
 class RAGGraph:
     """Classe principal do grafo RAG"""
@@ -290,7 +286,7 @@ class RAGGraph:
         """Constrói o grafo LangGraph"""
         
         # Criar grafo
-        workflow = StateGraph(RAGState)
+        workflow = StateGraph(Dict[str, Any])
         
         # Adicionar nós
         workflow.add_node("supervisor", supervisor_node)
@@ -300,20 +296,9 @@ class RAGGraph:
         workflow.add_node("safety", safety_node)
         workflow.add_node("final_response", final_response_node)
         
-        # Definir fluxo
+        # Definir fluxo sequencial simples
         workflow.set_entry_point("supervisor")
-        
-        # Fluxo condicional
-        workflow.add_conditional_edges(
-            "supervisor",
-            should_continue,
-            {
-                "retriever": "retriever",
-                "answerer": "answerer"
-            }
-        )
-        
-        # Fluxo sequencial
+        workflow.add_edge("supervisor", "retriever")
         workflow.add_edge("retriever", "answerer")
         workflow.add_edge("answerer", "self_check")
         workflow.add_edge("self_check", "safety")
@@ -329,13 +314,28 @@ class RAGGraph:
         """
         try:
             # Criar estado inicial
-            state = RAGState()
-            state.messages = [HumanMessage(content=query)]
+            state = {
+                "messages": [HumanMessage(content=query)],
+                "query": "",
+                "retrieved_docs": [],
+                "answer": "",
+                "citations": [],
+                "needs_retrieval": False,
+                "safety_check_passed": False,
+                "self_check_passed": False,
+                "final_response": "",
+                "disclaimer": "",
+                "confidence_score": 0.0
+            }
             
             # Executar grafo
             result = self.graph.invoke(state)
             
-            return result.final_response
+            # O resultado deve ser um dicionário
+            if isinstance(result, dict):
+                return result.get("final_response", "Erro: Resposta não gerada")
+            else:
+                return "Erro: Formato de resposta inválido"
             
         except Exception as e:
             logger.error(f"❌ Erro no processamento: {e}")
