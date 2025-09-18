@@ -4,7 +4,18 @@ Interface Streamlit para o Assistente RAG sobre Autismo
 
 import streamlit as st
 import sys
+import os
 from pathlib import Path
+
+# Carregar .env manualmente ANTES de qualquer import
+env_file = Path(__file__).parent.parent / ".env"
+if env_file.exists():
+    with open(env_file, 'r') as f:
+        for line in f:
+            line = line.strip()
+            if line and not line.startswith('#') and '=' in line:
+                key, value = line.split('=', 1)
+                os.environ[key.strip()] = value.strip()
 
 # Adicionar src ao path para imports
 sys.path.append(str(Path(__file__).parent.parent))
@@ -177,12 +188,19 @@ def display_chat():
                         time.sleep(0.5)
                         
                         # Answerer
-                        current_status = "✍️ Answerer: Gerando resposta com Llama-3.2-3B..."
+                        current_status = "✍️ Answerer: Gerando resposta com GPT-3.5-turbo..."
                         progress_value = 50
                         update_loading()
                         
                         # Processar consulta (esta é a parte que demora mais)
-                        response = st.session_state.rag_graph.process_query(prompt)
+                        try:
+                            # Usar versão simples que funciona
+                            response = st.session_state.rag_graph.process_query_simple(prompt)
+                            if not response or response.strip() == "":
+                                response = "Desculpe, não foi possível gerar uma resposta. Tente reformular sua pergunta."
+                        except Exception as e:
+                            st.error(f"Erro ao processar consulta: {e}")
+                            response = f"Erro ao processar consulta: {str(e)}"
                         
                         # Self-Check
                         current_status = "🔍 Self-Check: Validando qualidade da resposta..."
