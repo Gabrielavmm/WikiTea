@@ -141,14 +141,17 @@ class LLMTool:
             
             # Gerar resposta
             response = self.llm.invoke(prompt)
+            logger.debug(f"🔍 Resposta bruta do LLM: {response!r}")
+
             
             # Processar resposta baseado no tipo
-            if hasattr(response, 'content'):
-                return response.content
-            elif isinstance(response, str):
-                return response
-            else:
-                return str(response)
+            if hasattr(response, 'content') and response.content:
+                
+                return response.content.strip()
+            if isinstance(response, str) and response.strip():
+                return response.strip()
+            logger.debug(f"🔍 Conteúdo final extraído: {response.content if hasattr(response,'content') else response}")
+            return str(response.strip)
                 
         except Exception as e:
             logger.error(f"❌ Erro ao gerar resposta: {e}")

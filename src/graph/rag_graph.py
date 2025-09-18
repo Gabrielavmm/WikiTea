@@ -113,6 +113,12 @@ def answerer_node(state: Dict[str, Any]) -> Dict[str, Any]:
         Resposta:"""
         
         response = llm_tool.generate_response(prompt)
+        logger.info(f"📝 Resposta bruta do LLM: {response}")
+        if not response or response.strip() == "...":
+            logger.warning("⚠️ Resposta vazia detectada no Answerer, aplicando fallback local")
+            response = "Desculpe, não encontrei informações suficientes nos documentos para responder com precisão."
+
+        logger.info(f"✅ Answerer: Resposta gerada com {len(citations)} citações")
         
         logger.info(f"✅ Answerer: Resposta gerada com {len(citations)} citações")
         
@@ -227,6 +233,8 @@ def final_response_node(state: Dict[str, Any]) -> Dict[str, Any]:
         confidence_score = state.get("confidence_score", 0.0)
         
         # Se não há resposta, tentar gerar uma resposta básica
+        logger.info(f"DEBUG >>> Estado completo recebido: {state}")
+
         if not answer or len(answer.strip()) < 10:
             logger.warning("⚠️ Resposta vazia detectada, gerando resposta de fallback")
             answer = """
