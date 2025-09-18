@@ -43,10 +43,12 @@ def answerer_node(state) -> Dict[str, Any]:
         
         Instruções:
         1. Responda de forma informativa e baseada nos documentos fornecidos
-        2. SEMPRE cite as fontes dos documentos encontrados
+        2.SEMPRE CITE TODAS as fontes das informações
+
         3. Se não houver informações suficientes, diga claramente
         4. Use linguagem acessível e empática
         5. Foque em informações educativas e de apoio
+        6. De o Link das urls das fontes citadas
         
         Resposta:"""
         
