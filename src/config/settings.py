@@ -54,12 +54,7 @@ class Settings:
         "rerank": False  # Se deve fazer reranking
     }
     
-    # Configurações de Self-Check
-    SELF_CHECK = {
-        "min_confidence": 0.6,  # Confiança mínima para aceitar resposta
-        "require_citations": True,  # Se citações são obrigatórias
-        "min_citations": 1  # Número mínimo de citações
-    }
+   
     
     # Configurações de Safety
     SAFETY = {

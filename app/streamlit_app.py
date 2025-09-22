@@ -38,7 +38,7 @@ logger = logging.getLogger(__name__)
 
 # Configuração da página
 st.set_page_config(
-    page_title="Assistente RAG - Autismo",
+    page_title="Assistente RAG - Especialista em TEA",
     layout="wide",
     initial_sidebar_state="expanded"
 )
@@ -52,7 +52,7 @@ def initialize_session_state():
         # Loading mais detalhado para inicialização
         init_container = st.container()
         with init_container:
-            st.info("🚀 Inicializando sistema RAG...")
+            st.info("Inicializando sistema...")
             
             init_progress = st.progress(0)
             init_status = st.empty()
@@ -91,20 +91,21 @@ def display_sidebar():
         st.title("Assistente RAG - Autismo")
         
         st.write("""
-        Sobre este sistema
+        Plataforma baseada em RAG (Recuperação Aumentada por Geração) para fornecimento de informações verificadas sobre Transtorno do Espectro Autista.
         
-        Este é um assistente baseado em RAG (Retrieval-Augmented Generation) 
-        especializado em informações sobre autismo (TEA).
+        **Características Técnicas:**
+                 
+        • Tecnologia RAG com múltiplas fontes
         
-        Características:
-        - Citações das fontes
-        - Verificação de evidências
-        - Disclaimers de segurança
-        - Múltiplas fontes de dados
+        • Citações documentadas
         
-        Importante:
-        Este sistema é apenas informativo e não substitui 
-        consulta médica ou psicológica profissional.
+        • Verificação de evidências
+        
+        • Disclaimers integrados
+
+        **Base de Conhecimento:** Documentos oficiais do SUS, Ministério da Saúde, OPAS, MEC e legislação brasileira.
+
+        🚨 **Atenção:** Este é um sistema informativo. Não substitui acompanhamento profissional especializado.
         """)
         
         # Informações do sistema
@@ -135,7 +136,7 @@ def display_sidebar():
 
 def display_chat():
     """Exibe a interface de chat"""
-    st.title("Chat com o Assistente")
+    st.title("WikiTEA")
     
     # Exibir histórico de mensagens
     for message in st.session_state.messages:
@@ -238,38 +239,16 @@ def display_chat():
             st.error(error_msg)
             st.session_state.messages.append({"role": "assistant", "content": error_msg})
 
-def display_examples():
-    """Exibe exemplos de perguntas"""
-    st.subheader("Exemplos de Perguntas")
-    
-    examples = [
-        "O que é autismo?",
-        "Quais são os sinais do TEA?",
-        "Como funciona o diagnóstico?",
-        "Quais são as terapias disponíveis?",
-        "Quais são os direitos das pessoas com autismo?",
-        "Como apoiar uma criança com autismo?",
-        "O que é ABA?",
-        "Como funciona a inclusão escolar?"
-    ]
-    
-    cols = st.columns(2)
-    for i, example in enumerate(examples):
-        col = cols[i % 2]
-        if col.button(f"? {example}", key=f"example_{i}"):
-            st.session_state.messages.append({"role": "user", "content": example})
-            st.rerun()
 
 def display_footer():
     """Exibe rodapé com informações importantes"""
     st.write("---")
     
     st.write("""
-    Disclaimer Importante:
+    IMPORTANTE:
     
     Este sistema é apenas informativo e educacional. As informações fornecidas 
     não substituem consulta médica, psicológica ou de outros profissionais qualificados.
-    
     Para diagnóstico, tratamento ou orientações específicas, sempre consulte 
     profissionais de saúde especializados.
     
@@ -289,7 +268,7 @@ def main():
     
     with tab1:
         display_chat()
-        display_examples()
+       
     
     with tab2:
         st.subheader("Sobre o Sistema")
@@ -300,16 +279,19 @@ def main():
         Este sistema utiliza uma arquitetura de agentes baseada em LangGraph:
         
         Agentes:
-        - Supervisor: Decide o fluxo baseado na consulta
-        - Retriever: Busca documentos relevantes no banco vetorial
-        - Answerer: Gera resposta com base nos documentos encontrados
-        - Self-Check: Valida se a resposta tem evidências suficientes
-        - Safety: Adiciona disclaimers e verifica segurança
+        - Supervisor: Atua como coordenador do processo. Ele entende a intenção da pergunta e direciona o fluxo de trabalho entre os agentes apropriados.
+        - Retriever: Responsável por buscar informações relevantes em uma base de dados vetorial, localizando documentos e conteúdos que possam fundamentar a resposta.
+        - Answerer: Utiliza os documentos encontrados para gerar uma resposta clara, objetiva e baseada em evidências.
+        - Self-Check: Valida se a resposta gerada está de fato sustentada por evidências concretas e coerentes com os documentos recuperados.
+        - Safety: Garante que a resposta seja segura, adicionando alertas, avisos de responsabilidade (disclaimers) e evitando conteúdos sensíveis ou inadequados.
+        - Direito: Especializado nos direitos da pessoa autista, este agente identifica e fornece informações legais pertinentes, como acesso a políticas públicas, leis de inclusão, benefícios sociais, direitos educacionais e trabalhistas, entre outros.
+        - Médico: Adiciona ressalvas médicas, destacando que o conteúdo fornecido não substitui diagnóstico ou acompanhamento por profissionais da saúde.
+        - Educador: Inclui orientações pedagógicas e ressalta limitações educacionais, destacando que o chatbot não substitui acompanhamento profissional ou escolar.
         
         Tecnologias:
         - LangGraph: Orquestração de agentes
         - ChromaDB: Banco vetorial para documentos
-        - HuggingFace Embeddings: Modelos de embedding
+        - OpenAI Embeddings: Modelos de embedding (text-embedding-ada-002)
         - Streamlit: Interface web
         - OpenAI/LLM: Geração de respostas
         
@@ -317,16 +299,18 @@ def main():
         
         O sistema implementa várias verificações:
         - Citações obrigatórias: Todas as respostas devem ter fontes
-        - Score de confiança: Avaliação da qualidade da resposta
+        
         - Verificação de evidências: Garantia de que há suporte documental
         - Disclaimers de segurança: Alertas sobre limitações médicas
         
         Fontes de Dados
         
-        - Wikipedia sobre autismo
-        - Informações oficiais do SUS
-        - Documentos educacionais sobre TEA
-        - Diretrizes e protocolos públicos
+        - Organização Pan-Americana da Saúde (OPAS/OMS)
+        - Ministério da Saúde do Brasil
+        - Ministério da Educação do Brasil(MEC)
+        - Linhas de Cuidado do SUS
+        - Legislação Federal Brasileira
+        - Fundação Oswaldo Cruz (Fiocruz)
         """)
         
         # Mostrar configurações se disponível

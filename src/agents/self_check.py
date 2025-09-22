@@ -20,22 +20,9 @@ def self_check_node(state) -> Dict[str, Any]:
         has_content = len(state.answer) > 50
         mentions_sources = "fonte" in state.answer.lower() or "documento" in state.answer.lower()
         
-        # Score de confiança baseado nas verificações
-        confidence = 0.0
-        if has_citations:
-            confidence += 0.4
-        if has_content:
-            confidence += 0.3
-        if mentions_sources:
-            confidence += 0.3
-        
-        state.confidence_score = confidence
-        state.self_check_passed = confidence >= 0.6
-        
-        logger.info(f"📊 Self-Check: Confiança {confidence:.2f}, Passou: {state.self_check_passed}")
         
         return {
-            "confidence_score": confidence,
+            
             "self_check_passed": state.self_check_passed,
             "messages": state.messages
         }

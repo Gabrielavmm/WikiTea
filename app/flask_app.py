@@ -127,14 +127,7 @@ HTML_TEMPLATE = """
         
         <div id="response" class="response" style="display: none;"></div>
         
-        <div class="examples">
-            <h3>💡 Exemplos de perguntas:</h3>
-            <button class="example-btn" onclick="setQuestion('O que é autismo?')">O que é autismo?</button>
-            <button class="example-btn" onclick="setQuestion('Quais são os sintomas do TEA?')">Sintomas do TEA</button>
-            <button class="example-btn" onclick="setQuestion('Como funciona o diagnóstico?')">Diagnóstico</button>
-            <button class="example-btn" onclick="setQuestion('Quais são as terapias disponíveis?')">Terapias</button>
-            <button class="example-btn" onclick="setQuestion('Como ajudar uma criança com autismo?')">Como ajudar</button>
-        </div>
+      
         
         <div class="warning">
             ⚠️ <strong>Importante:</strong> Este sistema é apenas informativo e não substitui consulta médica profissional.

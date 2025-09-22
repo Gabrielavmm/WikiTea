@@ -151,22 +151,10 @@ def self_check_node(state: Dict[str, Any]) -> Dict[str, Any]:
         has_content = len(answer) > 50
         mentions_sources = "fonte" in answer.lower() or "documento" in answer.lower()
         
-        # Score de confiança baseado nas verificações
-        confidence = 0.0
-        if has_citations:
-            confidence += 0.4
-        if has_content:
-            confidence += 0.3
-        if mentions_sources:
-            confidence += 0.3
-        
-        self_check_passed = confidence >= 0.6
-        
-        logger.info(f"📊 Self-Check: Confiança {confidence:.2f}, Passou: {self_check_passed}")
         
         return {
-            "confidence_score": confidence,
-            "self_check_passed": self_check_passed,
+            
+            
             "messages": state.get("messages", [])
         }
         
@@ -263,8 +251,6 @@ def final_response_node(state: Dict[str, Any]) -> Dict[str, Any]:
         # Adicionar disclaimer
         final_response += f"\n{disclaimer}"
         
-        # Adicionar score de confiança
-        final_response += f"\n\n📊 Confiança da resposta: {confidence_score:.1%}"
         
         # Adicionar resposta ao histórico de mensagens
         ai_message = AIMessage(content=final_response)
@@ -441,8 +427,6 @@ class RAGGraph:
         """
             final_response += f"\n{disclaimer}"
             
-            # Adicionar score de confiança
-            final_response += f"\n\n📊 Confiança da resposta: 95.0%"
             
             logger.info("✅ Resposta simples compilada")
             return final_response
