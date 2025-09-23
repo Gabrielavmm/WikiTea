@@ -103,8 +103,6 @@ def display_sidebar():
         
         • Disclaimers integrados
 
-        **Base de Conhecimento:** Documentos oficiais do SUS, Ministério da Saúde, OPAS, MEC e legislação brasileira.
-
         🚨 **Atenção:** Este é um sistema informativo. Não substitui acompanhamento profissional especializado.
         """)
         

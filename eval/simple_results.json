@@ -1,0 +1,157 @@
+{
+  "timestamp": "2025-09-22T23:16:02.354659",
+  "metrics": {
+    "success_rate": 1.0,
+    "citation_rate": 1.0,
+    "disclaimer_rate": 1.0,
+    "keyword_match_rate": 0.4,
+    "domain_accuracy": {
+      "saúde": 1.0,
+      "direito": 1.0,
+      "educação": 1.0
+    },
+    "total_questions": 10,
+    "successful_responses": 10,
+    "responses_with_citations": 10,
+    "responses_with_disclaimers": 10,
+    "responses_with_keywords": 4
+  },
+  "responses": [
+    {
+      "question": "O que é o Transtorno do Espectro Autista (TEA)?",
+      "answer": "\n        Desculpe, ocorreu um erro ao processar sua pergunta. \n        Por favor, tente novamente ou reformule sua pergunta.\n        \n\n\n\n        ⚠️ IMPORTANTE: Esta é uma resposta informativa baseada em documentos públicos. \n        Não substitui consulta médica, psicológica ou de outros profissionais qualificados. \n        Sempre consulte profissionais de saúde para diagnóstico e tratamento.\n        ",
+      "ground_truth": "O Transtorno do Espectro Autista (TEA) é uma condição do desenvolvimento neurológico caracterizada por dificuldades persistentes na comunicação social e interação social, bem como padrões restritos e repetitivos de comportamento, interesses ou atividades.",
+      "question_id": 1,
+      "domain": "saúde",
+      "source": "Organização Pan-Americana da Saúde (OPAS/OMS) - Guia para Famílias sobre TEA",
+      "expected_citations": [
+        "OPAS",
+        "OMS",
+        "desenvolvimento neurológico"
+      ]
+    },
+    {
+      "question": "Quais são os sinais precoces de autismo em bebês?",
+      "answer": "Alguns dos sinais precoces de autismo em bebês podem incluir:\n\n1. Falta de contato visual: Bebês com autismo podem não olhar nos olhos dos pais ou cuidadores, o que é um sinal comum de interação social.\n\n2. Ausência de sorrisos sociais: Bebês com autismo podem não sorrir em resposta aos sorrisos dos pais ou não buscar contato visual para obter atenção.\n\n3. Atraso na linguagem: Bebês com autismo podem demorar mais para começar a balbuciar, imitar sons ou palavras, ou desenvolver suas habilidades de linguagem.\n\n4. Comportamentos repetitivos: Alguns bebês com autismo podem apresentar movimentos repetitivos, como balançar as mãos, balançar o corpo ou bater a cabeça.\n\n5. Sensibilidade sensorial: Bebês com autismo podem ser sensíveis a estímulos sensoriais, como barulhos altos, luzes brilhantes ou texturas diferentes.\n\nÉ importante lembrar que cada criança é única e pode apresentar diferentes sinais de autismo. Se você suspeita que seu bebê possa estar mostrando sinais de autismo, é essencial consultar um profissional de saúde especializado para uma avaliação adequada.\n\nFonte: Autismo Brasil - https://autismobrasil.org/autismo/sinais-precoces-autismo-bebes/\n\n\n\n        ⚠️ IMPORTANTE: Esta é uma resposta informativa baseada em documentos públicos. \n        Não substitui consulta médica, psicológica ou de outros profissionais qualificados. \n        Sempre consulte profissionais de saúde para diagnóstico e tratamento.\n        ",
+      "ground_truth": "Os sinais precoces incluem: falta de contato visual, não responder ao nome, não apontar objetos, atraso na fala, movimentos repetitivos, falta de sorriso social, e não imitar gestos simples.",
+      "question_id": 2,
+      "domain": "saúde",
+      "source": "Ministério da Saúde do Brasil - Linha de Cuidado para TEA",
+      "expected_citations": [
+        "contato visual",
+        "atraso na fala",
+        "sinais precoces"
+      ]
+    },
+    {
+      "question": "Qual a prevalência de autismo no Brasil?",
+      "answer": "\n        Desculpe, ocorreu um erro ao processar sua pergunta. \n        Por favor, tente novamente ou reformule sua pergunta.\n        \n\n\n\n        ⚠️ IMPORTANTE: Esta é uma resposta informativa baseada em documentos públicos. \n        Não substitui consulta médica, psicológica ou de outros profissionais qualificados. \n        Sempre consulte profissionais de saúde para diagnóstico e tratamento.\n        ",
+      "ground_truth": "Estima-se que 1 em cada 36 crianças seja diagnosticada com TEA, sendo mais comum em meninos (4:1). No Brasil, não há dados oficiais precisos, mas estimativas sugerem mais de 2 milhões de pessoas com TEA.",
+      "question_id": 3,
+      "domain": "saúde",
+      "source": "Centers for Disease Control and Prevention (CDC) e Ministério da Saúde",
+      "expected_citations": [
+        "1 em 36",
+        "prevalência",
+        "meninos"
+      ]
+    },
+    {
+      "question": "Quais são os direitos educacionais da pessoa com autismo?",
+      "answer": "Os direitos educacionais da pessoa com autismo são garantidos por leis e normas que visam garantir uma educação inclusiva e de qualidade para todos. No Brasil, a Constituição Federal, a Lei de Diretrizes e Bases da Educação Nacional (LDB) e o Estatuto da Pessoa com Deficiência são alguns dos documentos que asseguram esses direitos.\n\nDe acordo com a LDB, a pessoa com autismo tem direito a uma educação inclusiva, ou seja, a ser matriculada em escolas regulares e a receber os apoios necessários para o seu desenvolvimento. Além disso, o Estatuto da Pessoa com Deficiência estabelece a obrigatoriedade de oferecer um atendimento educacional especializado, preferencialmente na rede regular de ensino.\n\nÉ importante ressaltar que a pessoa com autismo tem direito a um atendimento educacional que respeite suas especificidades e necessidades, por meio de um projeto pedagógico individualizado. Além disso, é fundamental garantir a formação de professores e profissionais da educação para que possam atender de forma adequada às demandas dos alunos com autismo.\n\nCaso haja dificuldades na garantia desses direitos, é importante buscar apoio de órgãos responsáveis pela defesa dos direitos das pessoas com deficiência, como o Ministério Público e a Defensoria Pública. É fundamental que a família e a escola trabalhem juntas para garantir o pleno desenvolvimento educacional da pessoa com autismo.\n\nFonte:\n- Constituição Federal\n- Lei de Diretrizes e Bases da Educação Nacional (LDB)\n- Estatuto da Pessoa com Deficiência\n\n\n\n        ⚠️ IMPORTANTE: Esta é uma resposta informativa baseada em documentos públicos. \n        Não substitui consulta médica, psicológica ou de outros profissionais qualificados. \n        Sempre consulte profissionais de saúde para diagnóstico e tratamento.\n        ",
+      "ground_truth": "A Lei Brasileira de Inclusão garante educação inclusiva, adaptações curriculares, apoio especializado, e acesso ao Atendimento Educacional Especializado (AEE). A pessoa com TEA tem direito à matrícula em escola regular.",
+      "question_id": 4,
+      "domain": "direito",
+      "source": "Lei 13.146/2015 (LBI) e Ministério da Educação",
+      "expected_citations": [
+        "Lei Brasileira de Inclusão",
+        "educação inclusiva",
+        "AEE"
+      ]
+    },
+    {
+      "question": "Como funciona o diagnóstico de autismo?",
+      "answer": "O diagnóstico de autismo geralmente é feito por uma equipe multidisciplinar que inclui médicos, psicólogos, terapeutas ocupacionais e fonoaudiólogos. O processo de diagnóstico pode envolver observação do comportamento da criança, entrevistas com os pais ou responsáveis, avaliações de desenvolvimento e testes específicos.\n\nSegundo a Associação Americana de Psiquiatria (APA), o Manual Diagnóstico e Estatístico de Transtornos Mentais (DSM-5) é uma das principais referências utilizadas para diagnosticar o Transtorno do Espectro Autista. O DSM-5 descreve critérios específicos que devem ser atendidos para que o diagnóstico de autismo seja feito.\n\nAlém disso, a avaliação do autismo também pode incluir a utilização de instrumentos como o M-CHAT (Questionário de Triagem Modificado para Autismo em Crianças Pequenas), que é um questionário preenchido pelos pais para identificar possíveis sinais de autismo em crianças pequenas.\n\nÉ importante ressaltar que o processo de diagnóstico deve ser feito por profissionais qualificados e experientes no tratamento de autismo, pois somente eles estão aptos a interpretar corretamente os sinais e sintomas do TEA.\n\nSe você suspeita que seu filho ou alguém próximo possa ter autismo, é fundamental buscar ajuda profissional para uma avaliação adequada. Quanto mais cedo o diagnóstico for feito, mais cedo a intervenção adequada pode ser iniciada, o que pode trazer benefícios significativos para o desenvolvimento da criança.\n\n\n\n        ⚠️ IMPORTANTE: Esta é uma resposta informativa baseada em documentos públicos. \n        Não substitui consulta médica, psicológica ou de outros profissionais qualificados. \n        Sempre consulte profissionais de saúde para diagnóstico e tratamento.\n        ",
+      "ground_truth": "O diagnóstico é clínico, realizado por equipe multidisciplinar (psiquiatra, psicólogo, fonoaudiólogo, terapeuta ocupacional). Utiliza critérios do DSM-5 e instrumentos como ADOS-2 e ADI-R. Deve ser feito por profissionais especializados.",
+      "question_id": 5,
+      "domain": "saúde",
+      "source": "Manual Diagnóstico e Estatístico de Transtornos Mentais (DSM-5)",
+      "expected_citations": [
+        "DSM-5",
+        "diagnóstico clínico",
+        "equipe multidisciplinar"
+      ]
+    },
+    {
+      "question": "Quais terapias são indicadas para autismo?",
+      "answer": "\n        Desculpe, ocorreu um erro ao processar sua pergunta. \n        Por favor, tente novamente ou reformule sua pergunta.\n        \n\n\n\n        ⚠️ IMPORTANTE: Esta é uma resposta informativa baseada em documentos públicos. \n        Não substitui consulta médica, psicológica ou de outros profissionais qualificados. \n        Sempre consulte profissionais de saúde para diagnóstico e tratamento.\n        ",
+      "ground_truth": "As terapias incluem: Análise do Comportamento Aplicada (ABA), Terapia Ocupacional, Fonoaudiologia, Terapia Comportamental, e intervenções baseadas em evidências. A escolha deve ser individualizada e baseada nas necessidades específicas.",
+      "question_id": 6,
+      "domain": "saúde",
+      "source": "Academia Americana de Pediatria - Guidelines para TEA",
+      "expected_citations": [
+        "ABA",
+        "terapia ocupacional",
+        "fonoaudiologia"
+      ]
+    },
+    {
+      "question": "O que é o BPC (Benefício de Prestação Continuada) para autismo?",
+      "answer": "O Benefício de Prestação Continuada (BPC) é um benefício assistencial garantido pela Lei Orgânica da Assistência Social (LOAS) que visa garantir um salário mínimo mensal para pessoas com deficiência, incluindo autismo, e idosos com 65 anos ou mais que comprovem não possuir meios de prover a própria subsistência ou de tê-la provida por sua família.\n\nPara ter direito ao BPC para autismo, a pessoa deve passar por avaliação da deficiência e da incapacidade para o trabalho e a vida independente, realizada pelo Instituto Nacional do Seguro Social (INSS). É importante ressaltar que o benefício não exige contribuição previdenciária, mas sim a comprovação da condição de deficiência e vulnerabilidade social.\n\nFonte: https://www.gov.br/pt-br/servicos/solicitar-o-beneficio-de-prestacao-continuada-bpc-para-pessoa-com-deficiencia\n\n\n\n        ⚠️ IMPORTANTE: Esta é uma resposta informativa baseada em documentos públicos. \n        Não substitui consulta médica, psicológica ou de outros profissionais qualificados. \n        Sempre consulte profissionais de saúde para diagnóstico e tratamento.\n        ",
+      "ground_truth": "O BPC é um benefício assistencial pago pelo INSS para pessoas com deficiência e baixa renda. Pessoas com TEA podem ter direito se comprovarem incapacidade para vida independente e renda familiar per capita inferior a 1/4 do salário mínimo.",
+      "question_id": 7,
+      "domain": "direito",
+      "source": "Lei Orgânica da Assistência Social (LOAS) - Lei 8.742/1993",
+      "expected_citations": [
+        "BPC",
+        "INSS",
+        "LOAS"
+      ]
+    },
+    {
+      "question": "Como adaptar o ambiente escolar para alunos com autismo?",
+      "answer": "\n        Desculpe, ocorreu um erro ao processar sua pergunta. \n        Por favor, tente novamente ou reformule sua pergunta.\n        \n\n\n\n        ⚠️ IMPORTANTE: Esta é uma resposta informativa baseada em documentos públicos. \n        Não substitui consulta médica, psicológica ou de outros profissionais qualificados. \n        Sempre consulte profissionais de saúde para diagnóstico e tratamento.\n        ",
+      "ground_truth": "Adaptações incluem: rotina visual, redução de estímulos sensoriais, espaços de descanso, comunicação visual, apoio de profissional especializado, e flexibilização curricular conforme necessidades individuais.",
+      "question_id": 8,
+      "domain": "educação",
+      "source": "Ministério da Educação - Política Nacional de Educação Especial",
+      "expected_citations": [
+        "rotina visual",
+        "adaptação curricular",
+        "apoio especializado"
+      ]
+    },
+    {
+      "question": "Qual a diferença entre autismo e síndrome de Asperger?",
+      "answer": "\n        Desculpe, ocorreu um erro ao processar sua pergunta. \n        Por favor, tente novamente ou reformule sua pergunta.\n        \n\n\n\n        ⚠️ IMPORTANTE: Esta é uma resposta informativa baseada em documentos públicos. \n        Não substitui consulta médica, psicológica ou de outros profissionais qualificados. \n        Sempre consulte profissionais de saúde para diagnóstico e tratamento.\n        ",
+      "ground_truth": "Atualmente, no DSM-5, a síndrome de Asperger foi incorporada ao TEA como nível 1 (requer apoio leve). Historicamente, Asperger se caracterizava por autismo sem atraso na linguagem e com inteligência normal ou superior.",
+      "question_id": 9,
+      "domain": "saúde",
+      "source": "Manual Diagnóstico e Estatístico de Transtornos Mentais (DSM-5)",
+      "expected_citations": [
+        "DSM-5",
+        "nível 1",
+        "TEA"
+      ]
+    },
+    {
+      "question": "Como funciona a inclusão no mercado de trabalho para pessoas com autismo?",
+      "answer": "\n        Desculpe, ocorreu um erro ao processar sua pergunta. \n        Por favor, tente novamente ou reformule sua pergunta.\n        \n\n\n\n        ⚠️ IMPORTANTE: Esta é uma resposta informativa baseada em documentos públicos. \n        Não substitui consulta médica, psicológica ou de outros profissionais qualificados. \n        Sempre consulte profissionais de saúde para diagnóstico e tratamento.\n        ",
+      "ground_truth": "A Lei Brasileira de Inclusão estabelece cotas para pessoas com deficiência (incluindo TEA) em empresas com mais de 100 funcionários. Empresas devem fazer adaptações razoáveis e oferecer suporte adequado.",
+      "question_id": 10,
+      "domain": "direito",
+      "source": "Lei 13.146/2015 (LBI) e Lei 8.213/1991 (Lei de Cotas)",
+      "expected_citations": [
+        "Lei de Cotas",
+        "adaptações razoáveis",
+        "inclusão no trabalho"
+      ]
+    }
+  ],
+  "summary": {
+    "total_questions": 10,
+    "success_rate": 1.0,
+    "citation_rate": 1.0,
+    "disclaimer_rate": 1.0
+  }
+}

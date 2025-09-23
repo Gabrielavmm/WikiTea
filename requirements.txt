@@ -46,6 +46,6 @@ langchain-openai>=0.0.2
 # transformers>=4.35.0
 # torch>=2.1.0
 
-# Optional: Evaluation tools
-# ragas>=0.1.0
+# Evaluation tools
+ragas>=0.1.0
 # giskard>=2.0.0

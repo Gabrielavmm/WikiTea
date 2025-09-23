@@ -1,0 +1,284 @@
+{
+  "evaluation_questions": [
+    {
+      "id": 1,
+      "question": "O que é o Transtorno do Espectro Autista (TEA)?",
+      "ground_truth": "O Transtorno do Espectro Autista (TEA) é uma condição do desenvolvimento neurológico caracterizada por dificuldades persistentes na comunicação social e interação social, bem como padrões restritos e repetitivos de comportamento, interesses ou atividades.",
+      "source": "Organização Pan-Americana da Saúde (OPAS/OMS) - Guia para Famílias sobre TEA",
+      "url": "https://www.paho.org/pt/autism",
+      "domain": "saúde",
+      "expected_citations": ["OPAS", "OMS", "desenvolvimento neurológico"]
+    },
+    {
+      "id": 2,
+      "question": "Quais são os sinais precoces de autismo em bebês?",
+      "ground_truth": "Os sinais precoces incluem: falta de contato visual, não responder ao nome, não apontar objetos, atraso na fala, movimentos repetitivos, falta de sorriso social, e não imitar gestos simples.",
+      "source": "Ministério da Saúde do Brasil - Linha de Cuidado para TEA",
+      "url": "https://bvsms.saude.gov.br/autismo",
+      "domain": "saúde",
+      "expected_citations": ["contato visual", "atraso na fala", "sinais precoces"]
+    },
+    {
+      "id": 3,
+      "question": "Qual a prevalência de autismo no Brasil?",
+      "ground_truth": "Estima-se que 1 em cada 36 crianças seja diagnosticada com TEA, sendo mais comum em meninos (4:1). No Brasil, não há dados oficiais precisos, mas estimativas sugerem mais de 2 milhões de pessoas com TEA.",
+      "source": "Centers for Disease Control and Prevention (CDC) e Ministério da Saúde",
+      "url": "https://www.cdc.gov/ncbddd/autism/data.html",
+      "domain": "saúde",
+      "expected_citations": ["1 em 36", "prevalência", "meninos"]
+    },
+    {
+      "id": 4,
+      "question": "Quais são os direitos educacionais da pessoa com autismo?",
+      "ground_truth": "A Lei Brasileira de Inclusão garante educação inclusiva, adaptações curriculares, apoio especializado, e acesso ao Atendimento Educacional Especializado (AEE). A pessoa com TEA tem direito à matrícula em escola regular.",
+      "source": "Lei 13.146/2015 (LBI) e Ministério da Educação",
+      "url": "http://www.planalto.gov.br/ccivil_03/_ato2015-2018/2015/lei/l13146.htm",
+      "domain": "direito",
+      "expected_citations": ["Lei Brasileira de Inclusão", "educação inclusiva", "AEE"]
+    },
+    {
+      "id": 5,
+      "question": "Como funciona o diagnóstico de autismo?",
+      "ground_truth": "O diagnóstico é clínico, realizado por equipe multidisciplinar (psiquiatra, psicólogo, fonoaudiólogo, terapeuta ocupacional). Utiliza critérios do DSM-5 e instrumentos como ADOS-2 e ADI-R. Deve ser feito por profissionais especializados.",
+      "source": "Manual Diagnóstico e Estatístico de Transtornos Mentais (DSM-5)",
+      "url": "https://www.psychiatry.org/psychiatrists/practice/dsm",
+      "domain": "saúde",
+      "expected_citations": ["DSM-5", "diagnóstico clínico", "equipe multidisciplinar"]
+    },
+    {
+      "id": 6,
+      "question": "Quais terapias são indicadas para autismo?",
+      "ground_truth": "As terapias incluem: Análise do Comportamento Aplicada (ABA), Terapia Ocupacional, Fonoaudiologia, Terapia Comportamental, e intervenções baseadas em evidências. A escolha deve ser individualizada e baseada nas necessidades específicas.",
+      "source": "Academia Americana de Pediatria - Guidelines para TEA",
+      "url": "https://pediatrics.aappublications.org/content/145/1/e20193447",
+      "domain": "saúde",
+      "expected_citations": ["ABA", "terapia ocupacional", "fonoaudiologia"]
+    },
+    {
+      "id": 7,
+      "question": "O que é o BPC (Benefício de Prestação Continuada) para autismo?",
+      "ground_truth": "O BPC é um benefício assistencial pago pelo INSS para pessoas com deficiência e baixa renda. Pessoas com TEA podem ter direito se comprovarem incapacidade para vida independente e renda familiar per capita inferior a 1/4 do salário mínimo.",
+      "source": "Lei Orgânica da Assistência Social (LOAS) - Lei 8.742/1993",
+      "url": "http://www.planalto.gov.br/ccivil_03/leis/l8742.htm",
+      "domain": "direito",
+      "expected_citations": ["BPC", "INSS", "LOAS"]
+    },
+    {
+      "id": 8,
+      "question": "Como adaptar o ambiente escolar para alunos com autismo?",
+      "ground_truth": "Adaptações incluem: rotina visual, redução de estímulos sensoriais, espaços de descanso, comunicação visual, apoio de profissional especializado, e flexibilização curricular conforme necessidades individuais.",
+      "source": "Ministério da Educação - Política Nacional de Educação Especial",
+      "url": "https://www.gov.br/mec/pt-br/assuntos/noticias/2020/politica-nacional-de-educacao-especial",
+      "domain": "educação",
+      "expected_citations": ["rotina visual", "adaptação curricular", "apoio especializado"]
+    },
+    {
+      "id": 9,
+      "question": "Qual a diferença entre autismo e síndrome de Asperger?",
+      "ground_truth": "Atualmente, no DSM-5, a síndrome de Asperger foi incorporada ao TEA como nível 1 (requer apoio leve). Historicamente, Asperger se caracterizava por autismo sem atraso na linguagem e com inteligência normal ou superior.",
+      "source": "Manual Diagnóstico e Estatístico de Transtornos Mentais (DSM-5)",
+      "url": "https://www.psychiatry.org/psychiatrists/practice/dsm",
+      "domain": "saúde",
+      "expected_citations": ["DSM-5", "nível 1", "TEA"]
+    },
+    {
+      "id": 10,
+      "question": "Como funciona a inclusão no mercado de trabalho para pessoas com autismo?",
+      "ground_truth": "A Lei Brasileira de Inclusão estabelece cotas para pessoas com deficiência (incluindo TEA) em empresas com mais de 100 funcionários. Empresas devem fazer adaptações razoáveis e oferecer suporte adequado.",
+      "source": "Lei 13.146/2015 (LBI) e Lei 8.213/1991 (Lei de Cotas)",
+      "url": "http://www.planalto.gov.br/ccivil_03/_ato2015-2018/2015/lei/l13146.htm",
+      "domain": "direito",
+      "expected_citations": ["Lei de Cotas", "adaptações razoáveis", "inclusão no trabalho"]
+    },
+    {
+      "id": 11,
+      "question": "Quais são os níveis de suporte do TEA segundo o DSM-5?",
+      "ground_truth": "O DSM-5 define três níveis: Nível 1 (requer apoio leve), Nível 2 (requer apoio substancial), e Nível 3 (requer apoio muito substancial). A classificação baseia-se na comunicação social e comportamentos restritos/repetitivos.",
+      "source": "Manual Diagnóstico e Estatístico de Transtornos Mentais (DSM-5)",
+      "url": "https://www.psychiatry.org/psychiatrists/practice/dsm",
+      "domain": "saúde",
+      "expected_citations": ["níveis de suporte", "DSM-5", "comunicação social"]
+    },
+    {
+      "id": 12,
+      "question": "Como funciona o processo de matrícula escolar para crianças com autismo?",
+      "ground_truth": "A matrícula é obrigatória em escola regular, conforme Lei Brasileira de Inclusão. A escola deve fornecer adaptações necessárias e o Atendimento Educacional Especializado (AEE). Não pode haver recusa de matrícula por motivo de deficiência.",
+      "source": "Lei 13.146/2015 (LBI) e Resolução CNE/CEB 4/2009",
+      "url": "http://www.planalto.gov.br/ccivil_03/_ato2015-2018/2015/lei/l13146.htm",
+      "domain": "educação",
+      "expected_citations": ["matrícula obrigatória", "AEE", "adaptações"]
+    },
+    {
+      "id": 13,
+      "question": "Quais são as comorbidades mais comuns no autismo?",
+      "ground_truth": "As comorbidades incluem: TDAH (40-70%), ansiedade (40-50%), depressão (20-30%), epilepsia (30%), distúrbios do sono (50-80%), e problemas gastrointestinais (40-60%).",
+      "source": "Revista Brasileira de Psiquiatria - Comorbidades no TEA",
+      "url": "https://www.scielo.br/j/rbp/",
+      "domain": "saúde",
+      "expected_citations": ["TDAH", "ansiedade", "comorbidades"]
+    },
+    {
+      "id": 14,
+      "question": "Como funciona o Passe Livre para pessoas com autismo?",
+      "ground_truth": "O Passe Livre é um benefício federal que garante transporte interestadual gratuito para pessoas com deficiência e baixa renda. Para TEA, é necessário comprovar a condição e renda familiar per capita até 2 salários mínimos.",
+      "source": "Lei 8.899/1994 - Passe Livre Interestadual",
+      "url": "http://www.planalto.gov.br/ccivil_03/leis/l8899.htm",
+      "domain": "direito",
+      "expected_citations": ["Passe Livre", "transporte gratuito", "interestadual"]
+    },
+    {
+      "id": 15,
+      "question": "Qual o papel da família no tratamento do autismo?",
+      "ground_truth": "A família é fundamental no tratamento, participando ativamente das terapias, mantendo consistência em casa, criando ambiente estruturado, e sendo defensora dos direitos da criança. Apoio psicológico familiar é essencial.",
+      "source": "Organização Pan-Americana da Saúde - Guia para Famílias",
+      "url": "https://www.paho.org/pt/autism",
+      "domain": "saúde",
+      "expected_citations": ["participação ativa", "ambiente estruturado", "apoio familiar"]
+    },
+    {
+      "id": 16,
+      "question": "Como funciona o atendimento no SUS para autismo?",
+      "ground_truth": "O SUS oferece atendimento multidisciplinar através dos Centros de Atenção Psicossocial (CAPS), NASF, e serviços especializados. Inclui consultas médicas, terapias, medicamentos, e exames necessários para o tratamento.",
+      "source": "Ministério da Saúde - Linha de Cuidado para TEA",
+      "url": "https://bvsms.saude.gov.br/autismo",
+      "domain": "saúde",
+      "expected_citations": ["CAPS", "NASF", "atendimento multidisciplinar"]
+    },
+    {
+      "id": 17,
+      "question": "Quais adaptações são necessárias em casa para uma pessoa com autismo?",
+      "ground_truth": "Adaptações incluem: organização visual (rotinas, calendários), redução de estímulos sensoriais, espaços de descanso, sinalizações visuais, e estruturação do ambiente para promover autonomia e reduzir ansiedade.",
+      "source": "Terapia Ocupacional - Adaptações Ambientais para TEA",
+      "url": "https://www.terapiaocupacional.com.br/autismo",
+      "domain": "educação",
+      "expected_citations": ["organização visual", "estímulos sensoriais", "autonomia"]
+    },
+    {
+      "id": 18,
+      "question": "Como funciona a aposentadoria especial para pessoas com autismo?",
+      "ground_truth": "Pessoas com TEA podem ter direito à aposentadoria por invalidez se comprovarem incapacidade total e permanente. Também podem se aposentar por tempo de contribuição com redução de 2 anos se tiverem deficiência comprovada.",
+      "source": "Lei 8.213/1991 - Lei de Benefícios da Previdência Social",
+      "url": "http://www.planalto.gov.br/ccivil_03/leis/l8213.htm",
+      "domain": "direito",
+      "expected_citations": ["aposentadoria por invalidez", "incapacidade permanente", "tempo de contribuição"]
+    },
+    {
+      "id": 19,
+      "question": "Qual a importância da comunicação alternativa para autismo?",
+      "ground_truth": "A comunicação alternativa (PECS, AAC, sinais) é fundamental para pessoas com TEA que têm dificuldades na comunicação verbal. Melhora a expressão de necessidades, reduz frustrações, e promove inclusão social.",
+      "source": "Associação Americana de Fala-Linguagem e Audição (ASHA)",
+      "url": "https://www.asha.org/public/speech/disorders/autism/",
+      "domain": "educação",
+      "expected_citations": ["PECS", "AAC", "comunicação alternativa"]
+    },
+    {
+      "id": 20,
+      "question": "Como funciona o laudo médico para autismo?",
+      "ground_truth": "O laudo deve ser emitido por médico especialista (psiquiatra ou neurologista) e conter diagnóstico baseado em critérios do DSM-5, avaliação funcional, e recomendações terapêuticas. É necessário para acesso a direitos e benefícios.",
+      "source": "Conselho Federal de Medicina - Resolução 2.217/2018",
+      "url": "https://portal.cfm.org.br/",
+      "domain": "saúde",
+      "expected_citations": ["laudo médico", "DSM-5", "avaliação funcional"]
+    },
+    {
+      "id": 21,
+      "question": "Quais são os direitos previdenciários da pessoa com autismo?",
+      "ground_truth": "Direitos incluem: BPC (se baixa renda), aposentadoria por invalidez, auxílio-doença, isenção de IR, e prioridade em processos administrativos. Para BPC, renda familiar deve ser até 1/4 do salário mínimo.",
+      "source": "Lei 8.742/1993 (LOAS) e Lei 8.213/1991",
+      "url": "http://www.planalto.gov.br/ccivil_03/leis/l8742.htm",
+      "domain": "direito",
+      "expected_citations": ["BPC", "aposentadoria", "isenção IR"]
+    },
+    {
+      "id": 22,
+      "question": "Como funciona a terapia ABA para autismo?",
+      "ground_truth": "A Análise do Comportamento Aplicada (ABA) é uma abordagem baseada em evidências que ensina habilidades através de reforço positivo, análise funcional do comportamento, e ensino estruturado. É considerada padrão ouro no tratamento do TEA.",
+      "source": "Academia Americana de Pediatria - Guidelines para TEA",
+      "url": "https://pediatrics.aappublications.org/content/145/1/e20193447",
+      "domain": "saúde",
+      "expected_citations": ["ABA", "reforço positivo", "análise funcional"]
+    },
+    {
+      "id": 23,
+      "question": "Qual o papel do professor no atendimento educacional especializado?",
+      "ground_truth": "O professor do AEE trabalha em conjunto com o professor da sala regular, elaborando plano de atendimento individualizado, adaptando materiais, e fornecendo apoio técnico. Não substitui a educação regular, mas a complementa.",
+      "source": "Ministério da Educação - Diretrizes para AEE",
+      "url": "https://www.gov.br/mec/pt-br/assuntos/noticias/2020/politica-nacional-de-educacao-especial",
+      "domain": "educação",
+      "expected_citations": ["AEE", "plano individualizado", "apoio técnico"]
+    },
+    {
+      "id": 24,
+      "question": "Como funciona o atendimento odontológico para pessoas com autismo?",
+      "ground_truth": "O atendimento deve ser adaptado com técnicas de dessensibilização, uso de sedação quando necessário, ambiente calmo, e equipe especializada. O SUS oferece atendimento odontológico especializado através dos Centros de Especialidades Odontológicas (CEO).",
+      "source": "Ministério da Saúde - Política Nacional de Saúde Bucal",
+      "url": "https://bvsms.saude.gov.br/bvs/publicacoes/politica_nacional_brasil_sorridente.pdf",
+      "domain": "saúde",
+      "expected_citations": ["CEO", "sedação", "dessensibilização"]
+    },
+    {
+      "id": 25,
+      "question": "Quais são os mitos sobre autismo que devem ser desmistificados?",
+      "ground_truth": "Mitos comuns incluem: autismo é causado por vacinas (desmistificado), pessoas com autismo não sentem emoções (falso), autismo é uma doença mental (é condição neurológica), e que todos têm habilidades especiais (savantismo é raro).",
+      "source": "Organização Mundial da Saúde - Fatores de Risco para TEA",
+      "url": "https://www.who.int/news-room/fact-sheets/detail/autism-spectrum-disorders",
+      "domain": "saúde",
+      "expected_citations": ["vacinas", "emotividades", "savantismo"]
+    },
+    {
+      "id": 26,
+      "question": "Como funciona a inclusão digital para pessoas com autismo?",
+      "ground_truth": "A inclusão digital inclui: tecnologias assistivas, aplicativos de comunicação, softwares educacionais adaptados, e acesso à internet. O Marco Legal da Ciência e Tecnologia garante direitos digitais para pessoas com deficiência.",
+      "source": "Marco Legal da Ciência, Tecnologia e Inovação - Lei 13.243/2016",
+      "url": "http://www.planalto.gov.br/ccivil_03/_ato2015-2018/2016/lei/l13243.htm",
+      "domain": "educação",
+      "expected_citations": ["tecnologias assistivas", "inclusão digital", "aplicativos"]
+    },
+    {
+      "id": 27,
+      "question": "Qual a importância do diagnóstico precoce do autismo?",
+      "ground_truth": "O diagnóstico precoce (antes dos 3 anos) permite intervenção precoce, que melhora significativamente o desenvolvimento da criança. Estudos mostram que intervenção antes dos 2 anos tem melhor prognóstico para comunicação e habilidades sociais.",
+      "source": "Centers for Disease Control and Prevention - Early Intervention",
+      "url": "https://www.cdc.gov/ncbddd/actearly/",
+      "domain": "saúde",
+      "expected_citations": ["diagnóstico precoce", "intervenção precoce", "prognóstico"]
+    },
+    {
+      "id": 28,
+      "question": "Como funciona o atendimento em casos de crise em pessoas com autismo?",
+      "ground_truth": "Em crises, deve-se: manter calma, reduzir estímulos, usar comunicação simples, evitar confronto, e procurar ajuda profissional. Para crises graves, acionar SAMU (192) ou levar ao pronto-socorro. O SUS oferece atendimento de urgência.",
+      "source": "Ministério da Saúde - Protocolo de Atendimento de Urgência",
+      "url": "https://bvsms.saude.gov.br/bvs/publicacoes/protocolo_atendimento_urgencia.pdf",
+      "domain": "saúde",
+      "expected_citations": ["crise", "reduzir estímulos", "SAMU"]
+    },
+    {
+      "id": 29,
+      "question": "Quais são os direitos das famílias de pessoas com autismo?",
+      "ground_truth": "As famílias têm direito a: apoio psicológico, informações sobre direitos, acesso a serviços de saúde e educação, licenças especiais no trabalho (Lei 13.370/2016), e isenção de impostos para veículos adaptados.",
+      "source": "Lei 13.370/2016 - Licença para Acompanhamento de Tratamento",
+      "url": "http://www.planalto.gov.br/ccivil_03/_ato2015-2018/2016/lei/l13370.htm",
+      "domain": "direito",
+      "expected_citations": ["licença especial", "apoio psicológico", "isenção impostos"]
+    },
+    {
+      "id": 30,
+      "question": "Como funciona a transição para vida adulta no autismo?",
+      "ground_truth": "A transição deve ser planejada desde a adolescência, incluindo: desenvolvimento de habilidades independentes, preparação para trabalho, moradia assistida quando necessário, e continuidade do apoio familiar e social. É um processo gradual e individualizado.",
+      "source": "Organização Pan-Americana da Saúde - Transição para Vida Adulta",
+      "url": "https://www.paho.org/pt/autism",
+      "domain": "educação",
+      "expected_citations": ["transição", "habilidades independentes", "moradia assistida"]
+    }
+  ],
+  "metadata": {
+    "total_questions": 30,
+    "domains": {
+      "saúde": 15,
+      "direito": 8,
+      "educação": 7
+    },
+    "created_date": "2024-12-19",
+    "description": "Conjunto de perguntas de avaliação para sistema RAG sobre autismo com gabarito baseado em fontes oficiais"
+  }
+}
