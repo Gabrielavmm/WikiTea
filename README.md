@@ -1,4 +1,21 @@
 # WikiTEA
+Este projeto consiste em um chatbot inteligente voltado para o autismo, com o objetivo de fornecer informações acessíveis, confiáveis e atualizadas para pessoas diagnosticadas e para qualquer pessoa interessada no tema.
+O sistema responde perguntas com base em documentos científicos e institucionais relacionados às áreas de saúde, educação e leis.
+
+A aplicação foi desenvolvida utilizando a técnica de RAG (Retrieval-Augmented Generation), que combina recuperação de informações com geração de linguagem natural, permitindo que o chatbot consulte documentos relevantes antes de formular uma resposta.
+
+-Tecnologias utilizadas:
+
+LangChain: para orquestrar os fluxos de RAG e integrar módulos de busca, parsing de documentos e geração de respostas.
+
+LangGraph: para modelar e controlar o fluxo de decisão do chatbot em múltiplos nós, possibilitando lógica condicional e comportamentos dinâmicos.
+
+OpenAI GPT-4 (ou GPT-3.5): como modelo de linguagem base para gerar respostas em linguagem natural, com alto nível de precisão e contextualização.
+
+Streamlit: para a interface simples e interativa com o usuário final.
+
+Essa arquitetura permite que o chatbot ofereça respostas mais precisas e contextualizadas, reduzindo o risco de alucinações e aumentando a confiabilidade, especialmente em um tema sensível como o autismo.
+
 Link para slide: https://www.canva.com/design/DAGzvPQ5PXY/yzQOlrwilyliMHws7NVCKQ/view?utm_content=DAGzvPQ5PXY&utm_campaign=designshare&utm_medium=link2&utm_source=uniquelinks&utlId=h087e5e6c0c
 
 Para executar o projeto localmente, siga os passos abaixo:
