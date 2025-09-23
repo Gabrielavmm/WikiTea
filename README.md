@@ -1,250 +1,29 @@
-# 🧠 Assistente RAG para Autismo
+# WikiTEA
+Este projeto consiste em um chatbot inteligente voltado para o autismo, com o objetivo de fornecer informações acessíveis, confiáveis e atualizadas para pessoas diagnosticadas e para qualquer pessoa interessada no tema.
+O sistema responde perguntas com base em documentos científicos e institucionais relacionados às áreas de saúde, educação e leis.
 
-Sistema de assistente inteligente baseado em RAG (Retrieval-Augmented Generation) e agentes LangGraph, especializado em informações sobre autismo (TEA - Transtorno do Espectro Autista).
+A aplicação foi desenvolvida utilizando a técnica de RAG (Retrieval-Augmented Generation), que combina recuperação de informações com geração de linguagem natural, permitindo que o chatbot consulte documentos relevantes antes de formular uma resposta.
 
-## 🎯 Objetivo
+-Tecnologias utilizadas:
 
-Este projeto é uma prova de conceito (PoC) de um assistente com RAG + agentes que resolve um problema em **saúde**, especificamente fornecendo informações educativas sobre autismo com:
+LangChain: para orquestrar os fluxos de RAG e integrar módulos de busca, parsing de documentos e geração de respostas.
 
-- ✅ **Citações obrigatórias** das fontes consultadas
-- ✅ **Mecanismo anti-alucinação** com self-check
-- ✅ **Orquestração de agentes** via LangGraph
-- ✅ **Disclaimers de segurança** para questões de saúde
-- ✅ **Interface web** com Streamlit
+LangGraph: para modelar e controlar o fluxo de decisão do chatbot em múltiplos nós, possibilitando lógica condicional e comportamentos dinâmicos.
 
-## 🏗️ Arquitetura
+OpenAI GPT-4 (ou GPT-3.5): como modelo de linguagem base para gerar respostas em linguagem natural, com alto nível de precisão e contextualização.
 
-### Fluxo dos Agentes LangGraph
+Streamlit: para a interface simples e interativa com o usuário final.
 
-```
-[Streamlit UI] 
-   ↕
-[LangGraph Supervisor] ← src/graph/rag_graph.py
-   ├─(tool) RetrieverAgent  ← src/agents/retriever.py
-   ├─(tool) AnswerAgent     ← src/agents/answerer.py  
-   ├─(tool) SelfCheckAgent  ← src/agents/self_check.py
-   └─(tool) SafetyAgent     ← src/agents/safety.py
-```
+Essa arquitetura permite que o chatbot ofereça respostas mais precisas e contextualizadas, reduzindo o risco de alucinações e aumentando a confiabilidade, especialmente em um tema sensível como o autismo.
 
-### Estrutura do Projeto
+Link para slide: https://www.canva.com/design/DAGzvPQ5PXY/yzQOlrwilyliMHws7NVCKQ/view?utm_content=DAGzvPQ5PXY&utm_campaign=designshare&utm_medium=link2&utm_source=uniquelinks&utlId=h087e5e6c0c
 
-```
-AtividadeLLM/
-├── src/                    # Código principal dos agentes
-│   ├── agents/            # Agentes individuais
-│   ├── graph/             # Orquestração LangGraph
-│   ├── tools/             # Ferramentas (vector search, LLM)
-│   └── config/            # Configurações
-├── app/                   # Interface Streamlit
-├── ingest/                # Scripts de ingestão de dados
-├── eval/                  # Avaliação e métricas
-├── tests/                 # Testes
-├── data/                  # Dados brutos
-├── chroma_db/             # Banco vetorial ChromaDB
-├── requirements.txt       # Dependências
-├── Dockerfile            # Containerização
-└── README.md             # Esta documentação
-```
+Para executar o projeto localmente, siga os passos abaixo:
 
-## 🚀 Como Executar
+Primeiramente, certifique-se de ter o Python 3.8 ou superior instalado. Clone o repositório e, dentro da pasta do projeto, crie um ambiente virtual com o comando python3 -m venv .venv. Em seguida, ative o ambiente virtual utilizando source .venv/bin/activate em sistemas Unix (Linux/macOS). No Windows, o comando equivalente é .\.venv\Scripts\activate.
 
-### Pré-requisitos
+Com o ambiente virtual ativado, instale as dependências do projeto executando pip install -r requirements.txt.
 
-- Python 3.11+
-- Git
+Após instalar as dependências, realize a ingestão dos documentos no banco de dados executando o script python3 ingest/autism_docs.py.
 
-### 1. Clonar e Configurar
-
-```bash
-git clone <seu-repositorio>
-cd AtividadeLLM
-```
-
-### 2. Verificar Python e Dependências
-
-```bash
-# Verificar versão do Python
-python3.10 --version
-
-# Verificar se as dependências estão instaladas
-python3.10 -c "import langchain, streamlit, chromadb; print('✅ Dependências OK')"
-```
-
-### 3. Instalar Dependências (se necessário)
-
-```bash
-# Se alguma dependência estiver faltando:
-pip3.10 install langchain langchain-community langchain-chroma langgraph streamlit sentence-transformers
-```
-
-### 4. Executar Ingestão de Dados
-
-```bash
-python3.10 ingest/autism_docs.py
-```
-
-### 5. Executar Interface
-
-```bash
-python3.10 -m streamlit run app/streamlit_app.py
-```
-
-### 6. Acessar no Navegador
-
-Abra http://localhost:8501
-
-## 🐳 Executar com Docker
-
-```bash
-# Construir imagem
-docker build -t autism-rag .
-
-# Executar container
-docker run -p 8501:8501 autism-rag
-```
-
-## 🤖 Agentes Implementados
-
-### 1. **Supervisor** (Router de Intents)
-- Analisa a consulta do usuário
-- Decide se precisa de retrieval de documentos
-- Roteia para os agentes apropriados
-
-### 2. **Retriever** (Busca Vetorial)
-- Busca documentos relevantes no ChromaDB
-- Usa embeddings HuggingFace (sentence-transformers)
-- Retorna documentos com scores de similaridade
-
-### 3. **Answerer** (Gerador de Respostas)
-- Gera respostas baseadas nos documentos recuperados
-- **SEMPRE inclui citações** das fontes
-- Usa LLM (OpenAI GPT-3.5-turbo por padrão)
-
-### 4. **Self-Check** (Anti-alucinação)
-- Valida se a resposta tem evidências suficientes
-- Calcula score de confiança (0-1)
-- Rejeita respostas sem citações adequadas
-
-### 5. **Safety** (Verificação de Segurança)
-- Adiciona disclaimers médicos obrigatórios
-- Verifica palavras perigosas
-- Garante que não há aconselhamento médico direto
-
-## 📊 Métricas de Qualidade
-
-O sistema implementa várias verificações:
-
-- **Context Precision/Recall**: Baseado na relevância dos documentos recuperados
-- **Faithfulness**: Verificação se a resposta é baseada nas evidências
-- **Answer Relevancy**: Relevância da resposta para a pergunta
-- **Confidence Score**: Score de confiança (0-1) baseado em evidências
-- **Citation Coverage**: Percentual de sentenças com citações
-
-## 📚 Fontes de Dados
-
-- **Wikipedia**: Informações gerais sobre autismo
-- **SUS**: Protocolos oficiais do Ministério da Saúde
-- **OMS**: Diretrizes internacionais
-- **Documentos educacionais**: Material sobre TEA, direitos, terapias
-
-## ⚠️ Limitações e Disclaimers
-
-### **Ética & Segurança**
-- ❌ **NÃO faz diagnósticos** médicos ou psicológicos
-- ❌ **NÃO fornece aconselhamento** de tratamento
-- ❌ **NÃO substitui** consulta profissional
-- ✅ **APENAS informativo** com fontes citadas
-- ✅ **SEMPRE** inclui disclaimers de segurança
-
-### **Limitações Técnicas**
-- Baseado em documentos públicos disponíveis
-- Depende da qualidade dos embeddings
-- LLM pode ter limitações de conhecimento atual
-- Requer conexão com internet para algumas fontes
-
-## 🧪 Avaliação
-
-### Teste Manual
-- Conjunto de 20+ perguntas sobre autismo
-- Verificação manual de citações
-- Análise de relevância das respostas
-
-### Métricas Automatizadas
-- **Faithfulness**: RAGAS para verificar se respostas são baseadas em evidências
-- **Answer Relevancy**: Relevância das respostas para as perguntas
-- **Context Precision/Recall**: Qualidade da recuperação de documentos
-
-## 🚀 Instalação Rápida
-
-### 1. Clone o repositório
-```bash
-git clone <seu-repositorio>
-cd AtividadeLLM
-```
-
-### 2. Instale as dependências
-```bash
-pip install -r requirements.txt
-```
-
-### 3. Configure as variáveis de ambiente
-```bash
-# Copie o arquivo de exemplo
-cp env.example .env
-
-# Edite o .env com sua chave OpenAI
-nano .env
-```
-
-### 4. Execute o sistema
-```bash
-streamlit run app/streamlit_app.py
-```
-
-## 🔧 Configurações
-
-### Variáveis de Ambiente
-
-```bash
-# LLM
-export LLM_MODEL_TYPE="openai"  # openai, huggingface
-export LLM_MODEL_NAME="gpt-3.5-turbo"
-
-# Vector Store
-export VECTOR_STORE_DIR="./chroma_db"
-export VECTOR_STORE_COLLECTION="autismo"
-
-# Embeddings
-export EMBEDDING_MODEL="sentence-transformers/all-MiniLM-L6-v2"
-```
-
-## 📈 Próximos Passos
-
-- [ ] Adicionar mais fontes de dados (protocolos SUS, pesquisas)
-- [ ] Implementar reranking de documentos
-- [ ] Melhorar métricas de avaliação com RAGAS
-- [ ] Adicionar suporte a PDFs e documentos offline
-- [ ] Implementar cache de respostas
-- [ ] Adicionar logs de auditoria
-
-## 🤝 Contribuição
-
-Este é um projeto acadêmico. Para contribuições:
-
-1. Fork o projeto
-2. Crie uma branch para sua feature
-3. Commit suas mudanças
-4. Push para a branch
-5. Abra um Pull Request
-
-## 📄 Licença
-
-Este projeto está sob a licença MIT. Veja o arquivo LICENSE para detalhes.
-
-## 📞 Contato
-
-Desenvolvido como projeto final da disciplina de LLM.
-
----
-
-**⚠️ IMPORTANTE**: Este sistema é apenas educacional e informativo. Não substitui consulta médica, psicológica ou de outros profissionais qualificados. Sempre consulte profissionais de saúde para diagnóstico e tratamento.
+Por fim, para iniciar a aplicação e visualizar os dados por meio da interface do Streamlit, execute o comando streamlit run streamlit_app.py.
