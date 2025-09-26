@@ -28,7 +28,8 @@ Após instalar as dependências, realize a ingestão dos documentos no banco de 
 
 Por fim, para iniciar a aplicação e visualizar os dados por meio da interface do Streamlit, execute o comando streamlit run streamlit_app.py.
 
-#Arquitetura#
+#Arquitetura
+
 Usuário → Pergunta via Streamlit
 
  ↓
