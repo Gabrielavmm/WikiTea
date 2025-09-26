@@ -27,3 +27,38 @@ Com o ambiente virtual ativado, instale as dependências do projeto executando p
 Após instalar as dependências, realize a ingestão dos documentos no banco de dados executando o script python3 ingest/autism_docs.py.
 
 Por fim, para iniciar a aplicação e visualizar os dados por meio da interface do Streamlit, execute o comando streamlit run streamlit_app.py.
+
+#Arquitetura#
+Usuário → Pergunta via Streamlit
+
+ ↓
+
+Supervisor → Análise de intenção e classificação de domínio
+
+ Identifica palavras-chave (educação/saúde/direito)
+
+ Determina necessidade de retrieval
+
+ Roteia para agente apropriado
+
+ ↓
+
+Retriever → Busca especializada
+
+ 🎓 Educação: MEC + inclusão + pedagogia
+
+ 🏥 Saúde: SUS + terapias + direcionamentos
+
+ ⚖️ Direito: Leis + benefícios + direitos
+
+ 🌐 Geral: Busca ampla em todos os documentos
+
+ ↓
+
+Answerer → Geração de resposta
+
+ Contexto dos documentos recuperados
+
+ Prompt especializado por domínio
+
+ Geração com GPT-40-mini
